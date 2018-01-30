@@ -1,6 +1,6 @@
 require 'pry'
  class TweetController < ApplicationController
- 
+
    get '/tweets' do
      #binding.pry
      if logged_in?
@@ -11,7 +11,7 @@ require 'pry'
        redirect '/login'
    end
    end
- 
+
    get '/tweets/new' do
    if logged_in?
        @user = current_user
@@ -20,7 +20,7 @@ require 'pry'
        redirect '/login'
      end
    end
- 
+
    post '/tweets' do
      @tweet = Tweet.new(content:params[:content],user_id:session[:user_id])
      #binding.pry
@@ -30,7 +30,7 @@ require 'pry'
        redirect "/tweets/new"
      end
    end
- 
+
    get '/tweets/:id' do
      if logged_in?
        @tweet = Tweet.find(params[:id])
@@ -40,8 +40,8 @@ require 'pry'
        redirect '/login'
      end
    end
- 
- 
+
+
    get '/tweets/:id/edit' do
      if logged_in?
        @tweet = Tweet.find(params[:id])
@@ -54,7 +54,7 @@ require 'pry'
        redirect '/login'
      end
    end
- 
+
    post '/tweets/:id' do
      @tweet = Tweet.find(params[:id])
      if @tweet.update(content:params[:content])
@@ -63,7 +63,7 @@ require 'pry'
        redirect "/tweets/#{@tweet.id}/edit"
      end
    end
- 
+
    patch '/tweets/:id/delete' do
      @tweet = Tweet.find(params[:id])
      if @tweet.user_id == session[:user_id]
@@ -73,5 +73,5 @@ require 'pry'
        redirect '/tweets'
      end
    end
- 
+
  end
